@@ -1,6 +1,6 @@
 export const part1 = (input: string) => {
 	const lines = input.split('\n')
-	const stacks = {
+	const stacks: Record<number, string> = {
 		1: 'JHGMZNTF',
 		2: 'VWJ',
 		3: 'GVLJBTH',
@@ -12,7 +12,6 @@ export const part1 = (input: string) => {
 		9: 'GNFH',
 	}
 	const rearrangeProcedures = lines.slice(10)
-
 	rearrangeProcedures.forEach((rearrangeProcedure) => {
 		if (!rearrangeProcedure) return
 
@@ -23,14 +22,12 @@ export const part1 = (input: string) => {
 		stacks[to] = toStack + fromStr.split('').reverse().join('')
 		stacks[from] = fromStack.slice(0, fromStack.length - move)
 	})
-	return Object.values(stacks).reduce((acc, stack) => {
-		return acc + stack[stack.length - 1]
-	}, '')
+	return getLastLetterOfEachItem(Object.values(stacks))
 }
 
 export const part2 = (input: string) => {
 	const lines = input.split('\n')
-	const stacks = {
+	const stacks: Record<number, string> = {
 		1: 'JHGMZNTF',
 		2: 'VWJ',
 		3: 'GVLJBTH',
@@ -42,7 +39,6 @@ export const part2 = (input: string) => {
 		9: 'GNFH',
 	}
 	const rearrangeProcedures = lines.slice(10)
-
 	rearrangeProcedures.forEach((rearrangeProcedure) => {
 		if (!rearrangeProcedure) return
 
@@ -53,9 +49,7 @@ export const part2 = (input: string) => {
 		stacks[to] = toStack + fromStr
 		stacks[from] = fromStack.slice(0, fromStack.length - move)
 	})
-	return Object.values(stacks).reduce((acc, stack) => {
-		return acc + stack[stack.length - 1]
-	}, '')
+	return getLastLetterOfEachItem(Object.values(stacks))
 }
 
 const getMoveFromTo = (rearrangeProcedure: string) => {
@@ -64,3 +58,8 @@ const getMoveFromTo = (rearrangeProcedure: string) => {
 	const to = +rearrangeProcedure.split('to ')[1].split(' ')[0]
 	return { move, from, to }
 }
+
+const getLastLetterOfEachItem = (stacks: string[]) =>
+	stacks.reduce((acc, stack) => {
+		return acc + stack[stack.length - 1]
+	}, '')

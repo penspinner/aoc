@@ -4,6 +4,7 @@ export const part1 = (input: string) => {
 	let numFullyContainedAssignmentPairs = 0
 	data.forEach(([elf1, elf2]) => {
 		if (!elf1) return
+
 		const [elf1SectionA, elf1SectionB] = elf1.split('-').map(Number)
 		const [elf2SectionA, elf2SectionB] = elf2.split('-').map(Number)
 		if (
@@ -22,6 +23,7 @@ export const part2 = (input: string) => {
 	let numOverlappingRanges = 0
 	data.forEach(([elf1, elf2]) => {
 		if (!elf1) return
+
 		const [elf1SectionA, elf1SectionB] = elf1.split('-').map(Number)
 		const [elf2SectionA, elf2SectionB] = elf2.split('-').map(Number)
 		if (

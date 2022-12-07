@@ -1,38 +1,20 @@
 export const part1 = (input: string) => {
-	for (let i = 1; i < input.length; i++) {
-		const charCount: Record<string, number | undefined> = {}
-		let hasDuplicates = false
-
-		for (let j = i; j < i + 4; j++) {
-			const char = input[j]
-
-			if (charCount[char] === 1) {
-				// Character has been seen
-				hasDuplicates = true
-				break
-			} else if (charCount[char] === undefined) {
-				charCount[char] = 1
-			}
-		}
-
-		if (!hasDuplicates) {
-			return i + 4
-		}
-	}
-
-	throw new Error('No start of packet is detected.')
+	return getFirstCompartmentWithoutDuplicates(input, 4)
 }
 
 export const part2 = (input: string) => {
+	return getFirstCompartmentWithoutDuplicates(input, 14)
+}
+
+const getFirstCompartmentWithoutDuplicates = (input: string, after: number) => {
 	for (let i = 1; i < input.length; i++) {
 		const charCount: Record<string, number | undefined> = {}
 		let hasDuplicates = false
 
-		for (let j = i; j < i + 14; j++) {
+		for (let j = i; j < i + after; j++) {
 			const char = input[j]
 
 			if (charCount[char] === 1) {
-				// Character has been seen
 				hasDuplicates = true
 				break
 			} else if (charCount[char] === undefined) {
@@ -41,7 +23,7 @@ export const part2 = (input: string) => {
 		}
 
 		if (!hasDuplicates) {
-			return i + 14
+			return i + after
 		}
 	}
 

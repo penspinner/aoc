@@ -1,17 +1,5 @@
 export const part1 = (input: string) => {
-	const lines = input.split('\n')
-	const stacks: Record<number, string> = {
-		1: 'JHGMZNTF',
-		2: 'VWJ',
-		3: 'GVLJBTH',
-		4: 'BPJNCDVL',
-		5: 'FWSMPRG',
-		6: 'GHCFBNVM',
-		7: 'DHGMR',
-		8: 'HNMVZD',
-		9: 'GNFH',
-	}
-	const rearrangeProcedures = lines.slice(10)
+	const { stacks, rearrangeProcedures } = parseStacksAndRearrangeProcedures(input)
 	rearrangeProcedures.forEach((rearrangeProcedure) => {
 		if (!rearrangeProcedure) return
 
@@ -26,19 +14,7 @@ export const part1 = (input: string) => {
 }
 
 export const part2 = (input: string) => {
-	const lines = input.split('\n')
-	const stacks: Record<number, string> = {
-		1: 'JHGMZNTF',
-		2: 'VWJ',
-		3: 'GVLJBTH',
-		4: 'BPJNCDVL',
-		5: 'FWSMPRG',
-		6: 'GHCFBNVM',
-		7: 'DHGMR',
-		8: 'HNMVZD',
-		9: 'GNFH',
-	}
-	const rearrangeProcedures = lines.slice(10)
+	const { stacks, rearrangeProcedures } = parseStacksAndRearrangeProcedures(input)
 	rearrangeProcedures.forEach((rearrangeProcedure) => {
 		if (!rearrangeProcedure) return
 
@@ -50,6 +26,45 @@ export const part2 = (input: string) => {
 		stacks[from] = fromStack.slice(0, fromStack.length - move)
 	})
 	return getLastLetterOfEachItem(Object.values(stacks))
+}
+
+const parseStacksAndRearrangeProcedures = (input: string) => {
+	const lines = input.split('\n')
+	const stacks: Record<number, string> = {}
+	let lineThatContainsStackNums = undefined
+
+	for (let i = 0; i < lines.length; i++) {
+		const line = lines[i]
+
+		if (/\d/g.test(line)) {
+			// We found the line that contains stack numbers.
+			lineThatContainsStackNums = i
+			break
+		}
+
+		for (let i = 0; i < line.length; i += 4) {
+			const crate = line.slice(i, i + 3)
+
+			if (crate === '   ') {
+				continue
+			}
+
+			const char = crate[1]
+			const index = Math.ceil((i + 1) / 4)
+
+			if (!stacks[index]) {
+				stacks[index] = char
+			} else {
+				stacks[index] = char + stacks[index]
+			}
+		}
+	}
+
+	if (lineThatContainsStackNums === undefined) {
+		throw new Error('Unable to find line that contains stack numbers.')
+	}
+
+	return { stacks, rearrangeProcedures: lines.slice(lineThatContainsStackNums + 2) }
 }
 
 const getMoveFromTo = (rearrangeProcedure: string) => {

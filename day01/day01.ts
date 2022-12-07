@@ -1,3 +1,5 @@
+import { sum } from 'utils'
+
 export const part1 = (input: string) => {
 	const lines = input.split('\n\n')
 	const elveTotals = getElfCalorieTotals(lines)
@@ -17,5 +19,3 @@ const getElfCalorieTotals = (lines: string[]) => {
 		return elfTotalCalories
 	})
 }
-
-const sum = (nums: number[]) => nums.reduce((total, num) => total + num, 0)

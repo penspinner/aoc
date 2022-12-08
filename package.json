@@ -9,9 +9,6 @@
 	},
 	"author": "Steven Liao",
 	"license": "ISC",
-	"dependencies": {
-		"csv-parse": "^5.3.3"
-	},
 	"devDependencies": {
 		"@types/node": "^18.11.11",
 		"prettier": "^2.8.0",

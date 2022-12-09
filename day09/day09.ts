@@ -44,11 +44,14 @@ const getSeenCoordinatesByKnot = (lines: string[], knotCount: number) => {
 				const diffX = prevCoordinate.x - coordinate.x
 				const diffY = prevCoordinate.y - coordinate.y
 
-				if (Math.abs(diffY) >= 2 || Math.abs(diffX) >= 2) {
-					coordinate.x += Math.sign(diffX)
-					coordinate.y += Math.sign(diffY)
+				if (Math.abs(diffY) < 2 && Math.abs(diffX) < 2) {
+					// Break out of this loop because if the prev coordinate is not at least 2 points away,
+					// then the rest of the tail also does not need to move.
+					break
 				}
 
+				coordinate.x += Math.sign(diffX)
+				coordinate.y += Math.sign(diffY)
 				seenCoordinatesByKnot[j][`${coordinate.x},${coordinate.y}`] = true
 			}
 		}

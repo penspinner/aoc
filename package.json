@@ -5,6 +5,7 @@
 	"main": "",
 	"scripts": {
 		"format": "prettier './**/*.{tsx,ts,jsx,js}' --write",
+		"scaff": "node ./scaffold.mjs",
 		"test": "vitest"
 	},
 	"author": "Steven Liao",

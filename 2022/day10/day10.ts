@@ -36,7 +36,7 @@ export const part2 = (input: string) => {
 
 	const draw = () => {
 		const row = Math.floor(cycle / 40)
-		const column = Math.floor(cycle % 40)
+		const column = cycle % 40
 
 		if (column === x - 1 || column === x || column === x + 1) {
 			crt[row][column] = '#'

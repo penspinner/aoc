@@ -23,14 +23,14 @@ export const part2 = (input: string) => {
 
 const getMonkeyBusinessLevel = (input: string, worryReducer: number, rounds: number) => {
 	const monkeys = parseMonkeys(input)
-	const lowestCommonMulitple = Object.values(monkeys).reduce(
+	const lowestCommonMulitple = monkeys.reduce(
 		(currentLowestCommonMultiple, monkey) =>
 			getLowestCommonMulitple(currentLowestCommonMultiple, monkey.test.divisibleBy),
 		1,
 	)
 
 	for (let i = 0; i < rounds; i++) {
-		Object.values(monkeys).forEach((monkey) => {
+		monkeys.forEach((monkey) => {
 			monkey.items.forEach((item) => {
 				monkey.inspectedItemsCount++
 				const leftOperand =
@@ -42,7 +42,10 @@ const getMonkeyBusinessLevel = (input: string, worryReducer: number, rounds: num
 						? leftOperand * rightOperand
 						: leftOperand + rightOperand
 				newWorryLevel = Math.floor(newWorryLevel / worryReducer)
-				newWorryLevel = worryReducer > 1 ? newWorryLevel : newWorryLevel % lowestCommonMulitple
+
+				if (worryReducer <= 1) {
+					newWorryLevel %= lowestCommonMulitple
+				}
 
 				if (newWorryLevel % monkey.test.divisibleBy === 0) {
 					monkeys[monkey.test.divisibleByTrue].items.push(newWorryLevel)
@@ -55,7 +58,7 @@ const getMonkeyBusinessLevel = (input: string, worryReducer: number, rounds: num
 	}
 
 	// Top two monkeys item inspection count multiplied together.
-	const [monkeyMostInspected, monkeySecondMostInspected] = Object.values(monkeys).sort(
+	const [monkeyMostInspected, monkeySecondMostInspected] = monkeys.sort(
 		(monkeyA, monkeyB) => monkeyB.inspectedItemsCount - monkeyA.inspectedItemsCount,
 	)
 
@@ -64,9 +67,8 @@ const getMonkeyBusinessLevel = (input: string, worryReducer: number, rounds: num
 
 const parseMonkeys = (input: string) => {
 	const monkeyStrings = input.split('\n\n')
-	const monkeys = monkeyStrings.reduce<Record<number, Monkey>>((monkeys, monkeyString) => {
+	const monkeys: Monkey[] = monkeyStrings.map((monkeyString) => {
 		const monkeyInstructions = monkeyString.split('\n')
-		const monkeyNumber = +monkeyInstructions[0].split('Monkey ')[1].replace(':', '')
 		const monkeyStartingItems = monkeyInstructions[1]
 			.replace('Starting items: ', '')
 			.split(', ')
@@ -86,14 +88,13 @@ const parseMonkeys = (input: string) => {
 				.trim()
 			return { divisibleBy, divisibleByTrue, divisibleByFalse }
 		})()
-		monkeys[monkeyNumber] = {
+		return {
 			inspectedItemsCount: 0,
 			items: monkeyStartingItems,
 			operation: monkeyOperation,
 			test: monkeyTest,
 		}
-		return monkeys
-	}, {})
+	})
 	return monkeys
 }
 

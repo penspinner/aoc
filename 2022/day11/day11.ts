@@ -23,9 +23,9 @@ export const part2 = (input: string) => {
 
 const getMonkeyBusinessLevel = (input: string, worryReducer: number, rounds: number) => {
 	const monkeys = parseMonkeys(input)
-	const lowestCommonMulitple = monkeys.reduce(
-		(currentLowestCommonMultiple, monkey) =>
-			getLowestCommonMulitple(currentLowestCommonMultiple, monkey.test.divisibleBy),
+	const leastCommonMulitple = monkeys.reduce(
+		(currentLeastCommonMultiple, monkey) =>
+			getLeastCommonMulitple(currentLeastCommonMultiple, monkey.test.divisibleBy),
 		1,
 	)
 
@@ -44,7 +44,7 @@ const getMonkeyBusinessLevel = (input: string, worryReducer: number, rounds: num
 				newWorryLevel = Math.floor(newWorryLevel / worryReducer)
 
 				if (worryReducer <= 1) {
-					newWorryLevel %= lowestCommonMulitple
+					newWorryLevel %= leastCommonMulitple
 				}
 
 				if (newWorryLevel % monkey.test.divisibleBy === 0) {
@@ -98,11 +98,11 @@ const parseMonkeys = (input: string) => {
 	return monkeys
 }
 
-const getLowestCommonMulitple = (x: number, y: number) => {
-	return (x * y) / getGreatestCommonDenominator(x, y)
+const getLeastCommonMulitple = (x: number, y: number) => {
+	return (x * y) / getGreatestCommonFactor(x, y)
 }
 
-const getGreatestCommonDenominator = (x: number, y: number) => {
+const getGreatestCommonFactor = (x: number, y: number) => {
 	let [max, min] = y > x ? [x, y] : [y, x]
 
 	while (true) {

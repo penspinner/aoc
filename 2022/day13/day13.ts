@@ -1,14 +1,14 @@
-type PossiblyNestedNumberList = number[] | number | PossiblyNestedNumberList[]
+type Packets = number[] | number | Packets[]
 
 export const part1 = (input: string) => {
-	const pairs = input.split('\n\n')
-	return pairs.reduce((total, pair, pairIndex) => {
-		const [list1, list2] = pair.split('\n')
-		const list1Eval: PossiblyNestedNumberList[] = eval(list1)
-		const list2Eval: PossiblyNestedNumberList[] = eval(list2)
+	const packetsPairs = input.split('\n\n')
+	return packetsPairs.reduce((total, packetsPair, packetsPairIndex) => {
+		const [packets1, packets2] = packetsPair.split('\n')
+		const packets1Eval: Packets[] = eval(packets1)
+		const packets2Eval: Packets[] = eval(packets2)
 
-		if (areListsInOrder(list1Eval, list2Eval)) {
-			return total + pairIndex + 1
+		if (areListsInOrder(packets1Eval, packets2Eval)) {
+			return total + packetsPairIndex + 1
 		}
 
 		return total
@@ -16,28 +16,26 @@ export const part1 = (input: string) => {
 }
 
 export const part2 = (input: string) => {
-	const packet1 = [[2]]
-	const packet2 = [[6]]
-	const lines: PossiblyNestedNumberList[][] = [
+	const packets1 = [[2]]
+	const packets2 = [[6]]
+	const packetsList: Packets[][] = [
 		...input.split('\n').filter(Boolean).map(eval),
-		packet1,
-		packet2,
+		packets1,
+		packets2,
 	].sort((a, b) => (areListsInOrder(a, b) ? -1 : 1))
 	const [packet1Index, packet2Index] = (() => {
-		let tempPacket1Index = undefined
-		let tempPacket2Index = undefined
+		let tempPackets1Index = undefined
+		let tempPackets2Index = undefined
 
-		for (let i = 0; i < lines.length; i++) {
-			const line = lines[i]
-
-			if (line === packet1) {
-				tempPacket1Index = i
-			} else if (line === packet2) {
-				tempPacket2Index = i
+		for (const [i, packets] of packetsList.entries()) {
+			if (packets === packets1) {
+				tempPackets1Index = i
+			} else if (packets === packets2) {
+				tempPackets2Index = i
 			}
 
-			if (tempPacket1Index && tempPacket2Index) {
-				return [tempPacket1Index, tempPacket2Index]
+			if (tempPackets1Index && tempPackets2Index) {
+				return [tempPackets1Index, tempPackets2Index]
 			}
 		}
 
@@ -46,13 +44,10 @@ export const part2 = (input: string) => {
 	return (packet1Index + 1) * (packet2Index + 1)
 }
 
-const areListsInOrder = (
-	list1: PossiblyNestedNumberList[],
-	list2: PossiblyNestedNumberList[],
-): boolean | undefined => {
-	for (let i = 0; i < list1.length; i++) {
-		const left = list1[i]
-		const right = list2[i]
+const areListsInOrder = (packets1: Packets[], packets2: Packets[]): boolean | undefined => {
+	for (let i = 0; i < packets1.length; i++) {
+		const left = packets1[i]
+		const right = packets2[i]
 
 		if (right === undefined) {
 			return false
@@ -70,19 +65,19 @@ const areListsInOrder = (
 			continue
 		}
 
-		const listsAreInOrder = areListsInOrder(
+		const packetsAreInOrder = areListsInOrder(
 			Array.isArray(left) ? left : [left],
 			Array.isArray(right) ? right : [right],
 		)
 
-		if (listsAreInOrder === undefined) {
+		if (packetsAreInOrder === undefined) {
 			continue
 		}
 
-		return listsAreInOrder
+		return packetsAreInOrder
 	}
 
-	if (list1.length === list2.length) {
+	if (packets1.length === packets2.length) {
 		// `undefined` means to keep iterating and checking.
 		return undefined
 	}

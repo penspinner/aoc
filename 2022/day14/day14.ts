@@ -52,9 +52,10 @@ export const part2 = (input: string) => {
 		return item === '#' || item === 'o' || y === bounds.y2 + 2
 	}
 
-	let { x, y } = { x: 500, y: 0 }
+	let x = 500
+	let y = 0
 
-	while (!isBlocked(x, y)) {
+	while (true) {
 		const isBlockedBelow = isBlocked(x, y + 1)
 
 		if (!isBlockedBelow) {
@@ -80,6 +81,10 @@ export const part2 = (input: string) => {
 
 		structure[`${x},${y}`] = 'o'
 		sandCountBeforeFlowingToAbyss++
+
+		if (x === 500 && y === 0) {
+			break
+		}
 
 		x = 500
 		y = 0

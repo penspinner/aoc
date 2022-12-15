@@ -17,47 +17,18 @@ if (!fs.existsSync(currentPath)) {
 const sourceFilename = path.join(currentPath, `${fullDay}.ts`)
 
 if (!fs.existsSync(sourceFilename)) {
-	fs.writeFileSync(
-		sourceFilename,
-		`
-export const part1 = (input: string) => {
-
-}
-
-export const part2 = (input: string) => {
-
-}
-`.trim(),
-	)
+	const source = fs.readFileSync(path.join('templates', 'src.ts'))
+	fs.writeFileSync(sourceFilename, source)
 	console.log(`Created file ${sourceFilename}.`)
 }
 
 const testFilename = path.join(currentPath, `${fullDay}.test.ts`)
 
 if (!fs.existsSync(testFilename)) {
-	fs.writeFileSync(
-		testFilename,
-		`
-import { expect, test } from 'vitest'
-import { part1, part2 } from './${fullDay}'
-import fs from 'fs'
-import path from 'path'
-
-const inputString = fs.readFileSync(path.resolve(__dirname, './input.txt'), {
-  encoding: 'utf-8',
-})
-
-const exampleString = fs.readFileSync(path.resolve(__dirname, './example.txt'), {
-  encoding: 'utf-8',
-})
-
-test('part1 examples', () => {
-  expect(part1(exampleString)).toBe()
-})
-
-test('part1', () => {
-  expect(part1(inputString)).toBe()
-})
+	const testFile = fs.readFileSync(path.join('templates', 'test.ts'), { encoding: 'utf-8' })
+	fs.writeFileSync(testFilename, testFile.replace('${fullDay}', fullDay))
+	console.log(`Created file ${testFilename}.`)
+}
 
 test('part2 examples', () => {
   expect(part2(exampleString)).toBe()

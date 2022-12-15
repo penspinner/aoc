@@ -78,6 +78,13 @@ if (!fs.existsSync(inputFilename)) {
 	console.log(`Created file ${inputFilename}.`)
 }
 
+const exampleFilename = path.join(currentPath, 'example.txt')
+
+if (!fs.existsSync(exampleFilename)) {
+	fs.writeFileSync(exampleFilename, '')
+	console.log(`Created file ${exampleFilename}.`)
+}
+
 const readmeFilename = path.join(currentPath, 'README.md')
 
 if (!fs.existsSync(readmeFilename)) {

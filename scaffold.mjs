@@ -30,16 +30,12 @@ if (!fs.existsSync(testFilename)) {
 	console.log(`Created file ${testFilename}.`)
 }
 
-test('part2 examples', () => {
-  expect(part2(exampleString)).toBe()
-})
+const benchFilename = path.join(currentPath, `${fullDay}.bench.ts`)
 
-test('part2', () => {
-  expect(part2(inputString)).toBe()
-})
-  `.trim(),
-	)
-	console.log(`Created file ${testFilename}.`)
+if (!fs.existsSync(benchFilename)) {
+	const benchFile = fs.readFileSync(path.join('templates', 'bench.ts'), { encoding: 'utf-8' })
+	fs.writeFileSync(benchFilename, benchFile.replace('${fullDay}', fullDay))
+	console.log(`Created file ${benchFilename}.`)
 }
 
 const inputFilename = path.join(currentPath, 'input.txt')

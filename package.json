@@ -4,6 +4,7 @@
 	"description": "",
 	"main": "",
 	"scripts": {
+		"bench": "vitest bench",
 		"format": "prettier './**/*.{tsx,ts,json,jsx,js,mjs}' --write",
 		"scaff": "node ./scaffold.mjs",
 		"test": "vitest"

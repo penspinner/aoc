@@ -7,13 +7,16 @@ export const part1 = (input: string) => {
 		return item === '#' || item === 'o'
 	}
 
-	let { x, y } = { x: 500, y: 0 }
+	let x = 500
+	let y = 0
+	const positions = [{ x, y }]
 
 	while (x >= bounds.x1 && x < bounds.x2 && y >= bounds.y1 && y < bounds.y2) {
 		const isBlockedBelow = isBlocked(x, y + 1)
 
 		if (!isBlockedBelow) {
 			y++
+			positions.push({ x, y })
 			continue
 		}
 
@@ -22,6 +25,7 @@ export const part1 = (input: string) => {
 		if (!isBlockedBelowLeft) {
 			x--
 			y++
+			positions.push({ x, y })
 			continue
 		}
 
@@ -30,14 +34,20 @@ export const part1 = (input: string) => {
 		if (!isBlockedBelowRight) {
 			x++
 			y++
+			positions.push({ x, y })
 			continue
 		}
 
 		structure[`${x},${y}`] = 'o'
 		sandCountBeforeFlowingToAbyss++
+		positions.pop()
 
-		x = 500
-		y = 0
+		const lastPosition = positions.at(-1)
+
+		if (lastPosition) {
+			x = lastPosition.x
+			y = lastPosition.y
+		}
 	}
 
 	return sandCountBeforeFlowingToAbyss
@@ -54,12 +64,14 @@ export const part2 = (input: string) => {
 
 	let x = 500
 	let y = 0
+	const positions = [{ x, y }]
 
 	while (true) {
 		const isBlockedBelow = isBlocked(x, y + 1)
 
 		if (!isBlockedBelow) {
 			y++
+			positions.push({ x, y })
 			continue
 		}
 
@@ -68,6 +80,7 @@ export const part2 = (input: string) => {
 		if (!isBlockedBelowLeft) {
 			x--
 			y++
+			positions.push({ x, y })
 			continue
 		}
 
@@ -76,18 +89,24 @@ export const part2 = (input: string) => {
 		if (!isBlockedBelowRight) {
 			x++
 			y++
+			positions.push({ x, y })
 			continue
 		}
 
 		structure[`${x},${y}`] = 'o'
 		sandCountBeforeFlowingToAbyss++
+		positions.pop()
 
 		if (x === 500 && y === 0) {
 			break
 		}
 
-		x = 500
-		y = 0
+		const lastPosition = positions.at(-1)
+
+		if (lastPosition) {
+			x = lastPosition.x
+			y = lastPosition.y
+		}
 	}
 
 	return sandCountBeforeFlowingToAbyss

@@ -9,7 +9,7 @@ export const part1 = (input: string) => {
 export const part2 = (input: string) => {
 	const lines = input.split('\n\n')
 	const elfCaloriesTotals = getElfCalorieTotals(lines)
-	return sum(elfCaloriesTotals.sort().slice(-3))
+	return sum(elfCaloriesTotals.sort((a, b) => a - b).slice(-3))
 }
 
 const getElfCalorieTotals = (lines: string[]) => {

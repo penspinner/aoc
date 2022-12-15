@@ -7,8 +7,12 @@ const inputString = fs.readFileSync(path.resolve(__dirname, './input.txt'), {
 	encoding: 'utf-8',
 })
 
+const exampleString = fs.readFileSync(path.resolve(__dirname, './example.txt'), {
+	encoding: 'utf-8',
+})
+
 test('part1 examples', () => {
-	expect(part1('A Y\nB X\nC Z')).toBe(15)
+	expect(part1(exampleString)).toBe(15)
 })
 
 test('part1', () => {
@@ -16,7 +20,7 @@ test('part1', () => {
 })
 
 test('part2 examples', () => {
-	expect(part2('A Y\nB X\nC Z')).toBe(12)
+	expect(part2(exampleString)).toBe(12)
 })
 
 test('part2', () => {

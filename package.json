@@ -6,7 +6,6 @@
 	"scripts": {
 		"bench": "vitest bench",
 		"format": "prettier './**/*.{tsx,ts,json,jsx,js,mjs}' --write",
-		"scaff": "bun ./scaffold.mjs",
 		"test": "vitest"
 	},
 	"author": "Steven Liao",

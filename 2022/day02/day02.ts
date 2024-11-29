@@ -24,13 +24,15 @@ export const part1 = (input: string) => {
 			Z: 3,
 		},
 	}
-	lines.forEach((line) => {
+
+	for (const line of lines) {
 		const [elfMove, myMove] = line.split(' ')
 		const scoreForMyMove = scoreForMove[myMove as 'X' | 'Y' | 'Z']
 		const outcomeScoreForMyMove =
 			outcomeScoreForMove[elfMove as 'A' | 'B' | 'C'][myMove as 'X' | 'Y' | 'Z']
 		totalScore += scoreForMyMove + outcomeScoreForMyMove
-	})
+	}
+
 	return totalScore
 }
 
@@ -59,13 +61,15 @@ export const part2 = (input: string) => {
 			Z: 'X',
 		},
 	}
-	lines.forEach((line) => {
+
+	for (const line of lines) {
 		const [elfMove, myMove] = line.split(' ')
 		const myMoveBasedOnElfMove =
 			myMoveForElfMove[elfMove as 'A' | 'B' | 'C'][myMove as 'X' | 'Y' | 'Z']
 		const scoreForMyMove = scoreForMove[myMoveBasedOnElfMove as 'X' | 'Y' | 'Z']
 		const outcomeScoreForMyMove = outcomeScoreForMove[myMove as 'X' | 'Y' | 'Z']
 		totalScore += scoreForMyMove + outcomeScoreForMyMove
-	})
+	}
+
 	return totalScore
 }

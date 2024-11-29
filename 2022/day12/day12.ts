@@ -60,7 +60,7 @@ const getShortestFrom = (
 			break
 		}
 
-		d.forEach(({ dx, dy }) => {
+		for (const { dx, dy } of d) {
 			const nextNode = nodesByPosition[`${node.x + dx},${node.y + dy}`]
 
 			if (nextNode && !nextNode.visited && canMoveTo(node.char, nextNode.char)) {
@@ -70,7 +70,7 @@ const getShortestFrom = (
 
 				queue.push(nextNode)
 			}
-		})
+		}
 	}
 
 	if (!endNode) {
@@ -82,7 +82,7 @@ const getShortestFrom = (
 
 type Node = { char: string; x: number; y: number; distance: number; visited: boolean }
 
-const getStartPosition = (lines: string[], start: string, end: string) => {
+const getStartPosition = (lines: string[], start: string, _end: string) => {
 	const nodesByPosition: Record<`${number},${number}`, Node> = {}
 	let startNode: Node | undefined = undefined
 
@@ -95,7 +95,7 @@ const getStartPosition = (lines: string[], start: string, end: string) => {
 				startNode = node
 				nodesByPosition[`${j},${i}`] = node
 			} else {
-				node.distance = Infinity
+				node.distance = Number.POSITIVE_INFINITY
 				nodesByPosition[`${j},${i}`] = node
 			}
 		}

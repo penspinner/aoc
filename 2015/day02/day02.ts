@@ -1,7 +1,8 @@
 export const part1 = (input: string) => {
 	const lines = input.split('\n')
 	let total = 0
-	lines.forEach((line) => {
+
+	for (const line of lines) {
 		const [length, width, height] = line.split('x').map(Number)
 		const lengthXWidth = length * width
 		const widthXHeight = width * height
@@ -9,14 +10,16 @@ export const part1 = (input: string) => {
 		const surfaceArea = 2 * lengthXWidth + 2 * widthXHeight + 2 * heightXLength
 		const extra = Math.min(lengthXWidth, widthXHeight, heightXLength)
 		total += surfaceArea + extra
-	})
+	}
+
 	return total
 }
 
 export const part2 = (input: string) => {
 	const lines = input.split('\n')
 	let total = 0
-	lines.forEach((line) => {
+
+	for (const line of lines) {
 		const [length, width, height] = line.split('x').map(Number)
 		const volume = length * width * height
 		const lengthWidthPerimeter = 2 * length + 2 * width
@@ -28,6 +31,7 @@ export const part2 = (input: string) => {
 			heightLengthPerimeter,
 		)
 		total += volume + smallestPerimeter
-	})
+	}
+
 	return total
 }

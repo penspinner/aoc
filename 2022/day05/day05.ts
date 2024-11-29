@@ -1,7 +1,8 @@
 export const part1 = (input: string) => {
 	const { stacks, rearrangeProcedures } = parseStacksAndRearrangeProcedures(input)
-	rearrangeProcedures.forEach((rearrangeProcedure) => {
-		if (!rearrangeProcedure) return
+
+	for (const rearrangeProcedure of rearrangeProcedures) {
+		if (!rearrangeProcedure) continue
 
 		const { move, from, to } = getMoveFromTo(rearrangeProcedure)
 		const fromStack = stacks[from]
@@ -9,14 +10,16 @@ export const part1 = (input: string) => {
 		const fromStr = fromStack.slice(fromStack.length - move)
 		stacks[to] = toStack + fromStr.split('').reverse().join('')
 		stacks[from] = fromStack.slice(0, fromStack.length - move)
-	})
+	}
+
 	return getLastLetterOfEachItem(Object.values(stacks))
 }
 
 export const part2 = (input: string) => {
 	const { stacks, rearrangeProcedures } = parseStacksAndRearrangeProcedures(input)
-	rearrangeProcedures.forEach((rearrangeProcedure) => {
-		if (!rearrangeProcedure) return
+
+	for (const rearrangeProcedure of rearrangeProcedures) {
+		if (!rearrangeProcedure) continue
 
 		const { move, from, to } = getMoveFromTo(rearrangeProcedure)
 		const fromStack = stacks[from]
@@ -24,7 +27,8 @@ export const part2 = (input: string) => {
 		const fromStr = fromStack.slice(fromStack.length - move)
 		stacks[to] = toStack + fromStr
 		stacks[from] = fromStack.slice(0, fromStack.length - move)
-	})
+	}
+
 	return getLastLetterOfEachItem(Object.values(stacks))
 }
 

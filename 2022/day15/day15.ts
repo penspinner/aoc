@@ -1,7 +1,8 @@
 export const part1 = (input: string, row: number) => {
 	const [sensorToBeaconPairs, arrangement] = parse(input)
 	const pairsIntersectingRow: { x1: number; x2: number }[] = []
-	sensorToBeaconPairs.forEach(({ sensor, beacon }) => {
+
+	for (const { beacon, sensor } of sensorToBeaconPairs) {
 		const dx = Math.abs(beacon.x - sensor.x)
 		const dy = Math.abs(beacon.y - sensor.y)
 		const distance = dx + dy
@@ -25,7 +26,8 @@ export const part1 = (input: string, row: number) => {
 		// 		arrangement[`${sensor.x - x},${sensor.y - y}`] ??= '#'
 		// 	}
 		// }
-	})
+	}
+
 	pairsIntersectingRow.sort((a, b) => a.x1 - b.x1)
 	let total = 0
 	const pairsUsed: { x1: number; x2: number }[] = []
@@ -41,14 +43,16 @@ export const part1 = (input: string, row: number) => {
 	)
 	const getBeaconsInBetween = (x1: number, x2: number) => {
 		let beaconesInBetween = 0
-		beaconsOnRow.forEach((beacon) => {
+
+		for (const beacon of beaconsOnRow) {
 			const [beaconX1, beaconX2] = beacon.split(',').map(Number)
+
 			if (x1 <= beaconX1 && x2 >= beaconX2) {
 				beaconesInBetween++
-
 				beaconsOnRow.shift()
 			}
-		})
+		}
+
 		return beaconesInBetween
 	}
 	outerloop: for (let i = 0; i < pairsIntersectingRow.length; i++) {
@@ -73,14 +77,15 @@ export const part1 = (input: string, row: number) => {
 }
 
 export const part2 = (input: string) => {
-	const [sensorToBeaconPairs, arrangement] = parse(input)
+	const [sensorToBeaconPairs, _arrangement] = parse(input)
 	const bounds: { x1: number; y1: number; x2: number; y2: number } = {
-		x1: Infinity,
+		x1: Number.POSITIVE_INFINITY,
 		y1: 0,
-		x2: -Infinity,
-		y2: -Infinity,
+		x2: Number.NEGATIVE_INFINITY,
+		y2: Number.NEGATIVE_INFINITY,
 	}
-	sensorToBeaconPairs.forEach(({ sensor }) => {
+
+	for (const { sensor } of sensorToBeaconPairs) {
 		if (sensor.x < bounds.x1) {
 			bounds.x1 = sensor.x
 		}
@@ -96,8 +101,7 @@ export const part2 = (input: string) => {
 		if (sensor.y > bounds.y2) {
 			bounds.y2 = sensor.y
 		}
-	})
-	console.log(bounds)
+	}
 }
 
 const parse = (input: string) => {
@@ -107,7 +111,8 @@ const parse = (input: string) => {
 		sensor: { x: number; y: number }
 		beacon: { x: number; y: number }
 	}[] = []
-	lines.forEach((line) => {
+
+	for (const line of lines) {
 		const [left, right] = line.split(': ')
 		const [sensorX, sensorY] = left
 			.replace('Sensor at ', '')
@@ -123,6 +128,7 @@ const parse = (input: string) => {
 			sensor: { x: sensorX, y: sensorY },
 			beacon: { x: beaconX, y: beaconY },
 		})
-	})
+	}
+
 	return [sensorToBeaconPairs, arrangement] as const
 }

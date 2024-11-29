@@ -19,7 +19,7 @@ const getSeenCoordinatesByKnot = (lines: string[], knotCount: number) => {
 		seenCoordinatesByKnot[i] = { '0,0': true }
 	}
 
-	lines.forEach((line) => {
+	for (const line of lines) {
 		const [direction, stepStr] = line.split(' ')
 		const step = +stepStr
 
@@ -55,7 +55,7 @@ const getSeenCoordinatesByKnot = (lines: string[], knotCount: number) => {
 				seenCoordinatesByKnot[j][`${coordinate.x},${coordinate.y}`] = true
 			}
 		}
-	})
+	}
 
 	return seenCoordinatesByKnot
 }

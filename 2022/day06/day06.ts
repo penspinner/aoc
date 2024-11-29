@@ -17,7 +17,8 @@ const getFirstCompartmentWithoutDuplicates = (input: string, after: number) => {
 			if (charCount[char] === 1) {
 				hasDuplicates = true
 				break
-			} else if (charCount[char] === undefined) {
+			}
+			if (charCount[char] === undefined) {
 				charCount[char] = 1
 			}
 		}

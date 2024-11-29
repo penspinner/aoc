@@ -2,15 +2,15 @@ export const part1 = (input: string) => {
 	const lines = input.split('\n')
 	let sumProperties = 0
 
-	lines.forEach((line) => {
-		if (!line) return
+	for (const line of lines) {
+		if (!line) continue
 
 		const firstComp = line.slice(0, line.length / 2)
 		const secondComp = line.slice(line.length / 2)
 		const intersectingChar = getFirstIntersectingChar(firstComp, secondComp)
 		const n = intersectingChar === intersectingChar.toLowerCase() ? 96 : 38
 		sumProperties += intersectingChar.charCodeAt(0) - n
-	})
+	}
 
 	return sumProperties
 }

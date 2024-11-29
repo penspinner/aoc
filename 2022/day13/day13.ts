@@ -4,8 +4,8 @@ export const part1 = (input: string) => {
 	const packetsPairs = input.split('\n\n')
 	return packetsPairs.reduce((total, packetsPair, packetsPairIndex) => {
 		const [packets1, packets2] = packetsPair.split('\n')
-		const packets1Eval: Packets[] = eval(packets1)
-		const packets2Eval: Packets[] = eval(packets2)
+		const packets1Eval: Packets[] = JSON.parse(packets1)
+		const packets2Eval: Packets[] = JSON.parse(packets2)
 
 		if (areListsInOrder(packets1Eval, packets2Eval)) {
 			return total + packetsPairIndex + 1
@@ -19,7 +19,10 @@ export const part2 = (input: string) => {
 	const packets1 = [[2]]
 	const packets2 = [[6]]
 	const packetsList: Packets[][] = [
-		...input.split('\n').filter(Boolean).map(eval),
+		...input
+			.split('\n')
+			.filter(Boolean)
+			.map((line) => JSON.parse(line)),
 		packets1,
 		packets2,
 	].sort((a, b) => (areListsInOrder(a, b) ? -1 : 1))

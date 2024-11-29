@@ -4,7 +4,7 @@ export const part1 = (input: string) => {
 	let x = 1
 	let cycle = 1
 
-	lines.forEach((line) => {
+	for (const line of lines) {
 		const [command, amount] = line.split(' ')
 
 		if (command === 'noop') {
@@ -17,7 +17,8 @@ export const part1 = (input: string) => {
 			x += +amount
 			signalStrengthByCycle[cycle] = cycle * x
 		}
-	})
+	}
+
 	return (
 		signalStrengthByCycle[20] +
 		signalStrengthByCycle[60] +
@@ -45,7 +46,7 @@ export const part2 = (input: string) => {
 		}
 	}
 
-	lines.forEach((line) => {
+	for (const line of lines) {
 		const [command, amount] = line.split(' ')
 
 		if (command === 'noop') {
@@ -58,6 +59,7 @@ export const part2 = (input: string) => {
 			cycle++
 			x += +amount
 		}
-	})
+	}
+
 	return crt.map((row) => row.join('')).join('\n')
 }

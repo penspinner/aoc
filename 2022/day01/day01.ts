@@ -1,4 +1,4 @@
-import { sum } from 'utils'
+import { sum } from '../../utils'
 
 export const part1 = (input: string) => {
 	const lines = input.split('\n\n')

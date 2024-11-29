@@ -5,15 +5,16 @@
 	"main": "",
 	"scripts": {
 		"bench": "vitest bench",
-		"format": "prettier './**/*.{tsx,ts,json,jsx,js,mjs}' --write",
+		"check": "biome check",
+		"check:ts": "tsc",
 		"test": "vitest"
 	},
 	"author": "Steven Liao",
 	"license": "ISC",
 	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
 		"@types/bun": "^1.1.14",
 		"@types/node": "^22.10.1",
-		"prettier": "^3.4.1",
 		"typescript": "^5.7.2",
 		"vitest": "^2.1.6"
 	}

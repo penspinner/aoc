@@ -1,5 +1,5 @@
-import * as path from 'path'
-import { sum } from 'utils'
+import * as path from 'node:path'
+import { sum } from '../../utils'
 
 export const part1 = (input: string) => {
 	const dirSizeByDirname = getDirSizeByDirname(input)
@@ -13,19 +13,21 @@ export const part1 = (input: string) => {
 
 			return total
 		}, 0)
-	Object.entries(dirSizeByDirname).forEach(([dir, dirSize]) => {
+
+	for (const [dir, dirSize] of Object.entries(dirSizeByDirname)) {
 		if (dirSize > 100000) {
-			return
+			continue
 		}
 
 		const sumAllDirsStartingWith = getSumAllDirsStartingWith(dir)
 
 		if (sumAllDirsStartingWith > 100000) {
-			return
+			continue
 		}
 
 		sumOfDirsWithDirSizeUnder100000 += sumAllDirsStartingWith
-	})
+	}
+
 	return sumOfDirsWithDirSizeUnder100000
 }
 
@@ -44,7 +46,8 @@ export const part2 = (input: string) => {
 
 			return total
 		}, 0)
-	Object.keys(dirSizeByDirname).forEach((dirname) => {
+
+	for (const dirname of Object.keys(dirSizeByDirname)) {
 		const sumAllDirsStartingWith = getSumAllDirsStartingWith(dirname)
 		const unusedSpaceAfterDeletingDir = unusedSpace + sumAllDirsStartingWith
 		if (unusedSpaceAfterDeletingDir >= 30000000) {
@@ -55,7 +58,7 @@ export const part2 = (input: string) => {
 				smallestDirSizeToReachUnusedSpace = sumAllDirsStartingWith
 			}
 		}
-	})
+	}
 
 	if (smallestDirSizeToReachUnusedSpace === undefined) {
 		throw new Error('Unable to find a dir to delete that opens up space for 30,000,000.')
@@ -72,7 +75,8 @@ const getDirSizeByDirname = (input: string) => {
 	const lines = input.split('\n')
 	const dirSizeByDirname: Record<string, number> = {}
 	let currentDirname = ''
-	lines.forEach((line) => {
+
+	for (const line of lines) {
 		const [first, ...rest] = line.split(' ')
 
 		if (first === '$') {
@@ -95,6 +99,7 @@ const getDirSizeByDirname = (input: string) => {
 				dirSizeByDirname[currentDirname] = +first
 			}
 		}
-	})
+	}
+
 	return dirSizeByDirname
 }

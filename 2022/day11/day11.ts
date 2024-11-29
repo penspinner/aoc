@@ -30,8 +30,8 @@ const getMonkeyBusinessLevel = (input: string, worryReducer: number, rounds: num
 	)
 
 	for (let i = 0; i < rounds; i++) {
-		monkeys.forEach((monkey) => {
-			monkey.items.forEach((item) => {
+		for (const monkey of monkeys) {
+			for (const item of monkey.items) {
 				monkey.inspectedItemsCount++
 				const leftOperand =
 					monkey.operation.leftOperand === 'old' ? item : +monkey.operation.leftOperand
@@ -52,9 +52,10 @@ const getMonkeyBusinessLevel = (input: string, worryReducer: number, rounds: num
 				} else {
 					monkeys[monkey.test.divisibleByFalse].items.push(newWorryLevel)
 				}
-			})
+			}
+
 			monkey.items = []
-		})
+		}
 	}
 
 	// Top two monkeys item inspection count multiplied together.
@@ -107,7 +108,7 @@ const getGreatestCommonFactor = (x: number, y: number) => {
 
 	while (true) {
 		const res = max % min
-		if (res == 0) return min
+		if (res === 0) return min
 
 		max = min
 		min = res

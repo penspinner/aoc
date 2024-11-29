@@ -1,4 +1,4 @@
-import crypto from 'crypto'
+import crypto from 'node:crypto'
 
 export const part1 = (input: string) => {
 	return findLowestNumberThatMD5StartsWith(input, '00000')

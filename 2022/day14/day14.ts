@@ -116,10 +116,10 @@ const getBoundsAndStructure = (input: string) => {
 	const lines = input.split('\n')
 	const structure: Record<`${number},${number}`, string> = {}
 	const bounds: { x1: number; y1: number; x2: number; y2: number } | undefined = {
-		x1: Infinity,
+		x1: Number.POSITIVE_INFINITY,
 		y1: 0,
-		x2: -Infinity,
-		y2: -Infinity,
+		x2: Number.NEGATIVE_INFINITY,
+		y2: Number.NEGATIVE_INFINITY,
 	}
 
 	const drawRockLine = (from: { x: number; y: number }, to: { x: number; y: number }) => {
@@ -137,7 +137,7 @@ const getBoundsAndStructure = (input: string) => {
 		structure[`${to.x},${to.y}`] = '#'
 	}
 
-	lines.forEach((line) => {
+	for (const line of lines) {
 		const coordinates = line.split(' -> ').map((coordinateString) => {
 			const [x, y] = coordinateString.split(',').map(Number)
 			return { x, y }
@@ -160,7 +160,7 @@ const getBoundsAndStructure = (input: string) => {
 				bounds.y2 = coordinate.y
 			}
 		}
-	})
+	}
 
 	return [bounds, structure] as const
 }

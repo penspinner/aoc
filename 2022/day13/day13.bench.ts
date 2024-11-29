@@ -1,7 +1,7 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { bench } from 'vitest'
 import { part1, part2 } from './day13'
-import fs from 'fs'
-import path from 'path'
 
 const inputString = fs.readFileSync(path.resolve(__dirname, './input.txt'), {
 	encoding: 'utf-8',

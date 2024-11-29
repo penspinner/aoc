@@ -12,11 +12,11 @@ const exampleString = await fs.readFile(path.join(import.meta.dirname, './exampl
 })
 
 bench('part1 examples', () => {
-	part1(exampleString)
+	part1(exampleString, 10)
 })
 
 bench('part1', () => {
-	part1(inputString)
+	part1(inputString, 2000000)
 })
 
 bench('part2 examples', () => {

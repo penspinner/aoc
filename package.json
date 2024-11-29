@@ -6,14 +6,16 @@
 	"scripts": {
 		"bench": "vitest bench",
 		"format": "prettier './**/*.{tsx,ts,json,jsx,js,mjs}' --write",
-		"scaff": "node ./scaffold.mjs",
+		"scaff": "bun ./scaffold.mjs",
 		"test": "vitest"
 	},
 	"author": "Steven Liao",
 	"license": "ISC",
 	"devDependencies": {
+		"@types/bun": "^1.1.14",
 		"@types/node": "^22.10.1",
 		"prettier": "^3.4.1",
+		"typescript": "^5.7.2",
 		"vitest": "^2.1.6"
 	}
 }

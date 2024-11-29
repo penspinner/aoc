@@ -1,9 +1,9 @@
-import fs from 'node:fs'
+import * as fs from 'node:fs/promises'
 import path from 'node:path'
 import { expect, test } from 'vitest'
 import { part1, part2 } from './day02'
 
-const inputString = fs.readFileSync(path.resolve(__dirname, './input.txt'), {
+const inputString = await fs.readFile(path.join(import.meta.dirname, './input.txt'), {
 	encoding: 'utf-8',
 })
 

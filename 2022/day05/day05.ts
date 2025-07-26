@@ -35,7 +35,7 @@ export const part2 = (input: string) => {
 const parseStacksAndRearrangeProcedures = (input: string) => {
 	const lines = input.split('\n')
 	const stacks: Record<number, string> = {}
-	let lineThatContainsStackNums = undefined
+	let lineThatContainsStackNums: number | undefined
 
 	for (let i = 0; i < lines.length; i++) {
 		const line = lines[i]

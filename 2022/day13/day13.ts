@@ -27,8 +27,8 @@ export const part2 = (input: string) => {
 		packets2,
 	].sort((a, b) => (areListsInOrder(a, b) ? -1 : 1))
 	const [packet1Index, packet2Index] = (() => {
-		let tempPackets1Index = undefined
-		let tempPackets2Index = undefined
+		let tempPackets1Index: number | undefined
+		let tempPackets2Index: number | undefined
 
 		for (const [i, packets] of packetsList.entries()) {
 			if (packets === packets1) {

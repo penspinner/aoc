@@ -40,7 +40,7 @@ const getShortestFrom = (
 	const lines = input.split('\n')
 	const [startNode, nodesByPosition] = getStartPosition(lines, start, end)
 	const queue = [startNode]
-	let endNode = undefined
+	let endNode: Node | undefined
 
 	while (queue.length !== 0) {
 		const node = queue.shift()
@@ -84,7 +84,7 @@ type Node = { char: string; x: number; y: number; distance: number; visited: boo
 
 const getStartPosition = (lines: string[], start: string, _end: string) => {
 	const nodesByPosition: Record<`${number},${number}`, Node> = {}
-	let startNode: Node | undefined = undefined
+	let startNode: Node | undefined
 
 	for (let i = 0; i < lines.length; i++) {
 		for (let j = 0; j < lines[i].length; j++) {

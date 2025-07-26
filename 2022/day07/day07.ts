@@ -36,7 +36,7 @@ export const part2 = (input: string) => {
 	const dirSizes = Object.values(dirSizeByDirname)
 	const totalDirSize = sum(dirSizes)
 	const unusedSpace = 70000000 - totalDirSize
-	let smallestDirSizeToReachUnusedSpace: number | undefined = undefined
+	let smallestDirSizeToReachUnusedSpace: number | undefined
 	const dirnames = Object.keys(dirSizeByDirname)
 	const getSumAllDirsStartingWith = (dirnameStartingWith: string) =>
 		dirnames.reduce((total, dirname) => {

@@ -7,25 +7,40 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check:
-    name: Check lint and format
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Biome
-        uses: biomejs/setup-biome@v2
+        uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
         with:
-          version: latest
-      - name: Run Biome
-        run: biome ci .
+          bun-version: latest
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+      - name: Lint
+        run: bun run lint -- --format=github
+
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+      - name: Format check
+        run: bun run oxfmt --check
 
   typescript:
     name: TypeScript
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
